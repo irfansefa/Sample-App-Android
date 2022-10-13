@@ -8,14 +8,27 @@ a feature to save the retrieved data in the local storage.
 ## Connected public Api
 - [Age of Empires 2](https://age-of-empires-2-api.herokuapp.com/docs/#/)
   - ``/civilizations`` Gets a list of all the civilizations in AOE2
-  - ``/civilization/{id}`` Gets a given civilization by ID (Integer) or name (String with spaces replaced with hyphens/underscores)
+  - ``/civilization/{id}`` Gets a given civilization by ID (Integer) or name (String with spaces
+    replaced with hyphens/underscores)
   - ``/units`` Gets a list of all the units in AOE2
-  - ``/units/{id}`` Gets a given unit by ID (Integer) or name (String with spaces replaced with hyphens/underscores)
+  - ``/units/{id}`` Gets a given unit by ID (Integer) or name (String with spaces replaced with
+    hyphens/underscores)
   - ``/structures`` Gets a list of all the structures in AOE2
-  - ``/structures/{id}`` Gets a given structure by ID (Integer) or name (String with spaces replaced with hyphens/underscores)
+  - ``/structures/{id}`` Gets a given structure by ID (Integer) or name (String with spaces replaced
+    with hyphens/underscores)
   - ``/technologies`` Gets a list of all the technologies in AOE2
-  - ``/technologies/{id}`` Gets a given technology by ID (Integer) or name (String with spaces replaced with hyphens/underscores)
-  
+  - ``/technologies/{id}`` Gets a given technology by ID (Integer) or name (String with spaces
+    replaced with hyphens/underscores)
+
+## Dependencies
+
+- Jetpack Compose
+- Material3
+- Compose Navigation
+- Coil
+- Retrofit2
+- converter-gson
+
 ## Integrate with your tools
 
 - [ ] [Set up project integrations](https://gitlab.com/irfantemur/sample-app/-/settings/integrations)
