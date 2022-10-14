@@ -1,37 +1,43 @@
 package com.moonstarit.sampleapp.ui.civilizations
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moonstarit.sampleapp.domain.model.CivilizationData
 import com.moonstarit.sampleapp.domain.usecase.GetCivilizationsUseCase
 import com.moonstarit.sampleapp.domain.util.Resource
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.koin.java.KoinJavaComponent.get
 
 class CivilizationsViewModel(
-    private val getCivilizationsUseCase: GetCivilizationsUseCase
+    private val getCivilizationsUseCase: GetCivilizationsUseCase = get(GetCivilizationsUseCase::class.java)
 ) : ViewModel() {
-    var state by mutableStateOf(CivilizationsState())
-        private set
+
+    private val _state = MutableStateFlow(CivilizationsState())
+    val state: StateFlow<CivilizationsState> = _state.asStateFlow()
+
+    init {
+        loadCivilizations()
+    }
 
     fun loadCivilizations() {
         viewModelScope.launch {
-            state = state.copy(
+            _state.value = CivilizationsState(
                 isLoading = true,
                 error = null
             )
-            state = when (val result = getCivilizationsUseCase()) {
+            _state.value = when (val result = getCivilizationsUseCase()) {
                 is Resource.Error -> {
-                    state.copy(
+                    CivilizationsState(
                         civilizationData = null,
                         isLoading = false,
                         error = result.message
                     )
                 }
                 is Resource.Success -> {
-                    state.copy(
+                    CivilizationsState(
                         civilizationData = result.data,
                         isLoading = false,
                         error = null
