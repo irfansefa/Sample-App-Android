@@ -28,15 +28,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.moonstarit.sampleapp.domain.model.CivilizationData
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun CivilizationsScreen(
     onClickCivilization: () -> Unit = {},
-    viewModel: CivilizationsViewModel = viewModel()
+    viewModel: CivilizationsViewModel = getViewModel()
 ) {
-    val uiState by viewModel.state.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
     Box(
         modifier = Modifier.fillMaxSize()
     ) {

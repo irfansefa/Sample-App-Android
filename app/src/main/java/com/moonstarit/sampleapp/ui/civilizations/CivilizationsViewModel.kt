@@ -9,26 +9,25 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.koin.java.KoinJavaComponent.get
 
 class CivilizationsViewModel(
-    private val getCivilizationsUseCase: GetCivilizationsUseCase = get(GetCivilizationsUseCase::class.java)
+    private val getCivilizationsUseCase: GetCivilizationsUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(CivilizationsState())
-    val state: StateFlow<CivilizationsState> = _state.asStateFlow()
+    private val _uiState = MutableStateFlow(CivilizationsState())
+    val uiState: StateFlow<CivilizationsState> = _uiState.asStateFlow()
 
     init {
         loadCivilizations()
     }
 
-    fun loadCivilizations() {
+    private fun loadCivilizations() {
         viewModelScope.launch {
-            _state.value = CivilizationsState(
+            _uiState.value = CivilizationsState(
                 isLoading = true,
                 error = null
             )
-            _state.value = when (val result = getCivilizationsUseCase()) {
+            _uiState.value = when (val result = getCivilizationsUseCase()) {
                 is Resource.Error -> {
                     CivilizationsState(
                         civilizationData = null,
