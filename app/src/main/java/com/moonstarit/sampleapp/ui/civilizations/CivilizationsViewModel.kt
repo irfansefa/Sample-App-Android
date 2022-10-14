@@ -7,12 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moonstarit.sampleapp.domain.model.CivilizationData
 import com.moonstarit.sampleapp.domain.usecase.GetCivilizationsUseCase
-import com.moonstarit.sampleapp.domain.usecase.GetCivilizationsUseCaseImpl
 import com.moonstarit.sampleapp.domain.util.Resource
 import kotlinx.coroutines.launch
 
 class CivilizationsViewModel(
-    private val getCivilizationsUseCase: GetCivilizationsUseCase = GetCivilizationsUseCaseImpl()
+    private val getCivilizationsUseCase: GetCivilizationsUseCase
 ) : ViewModel() {
     var state by mutableStateOf(CivilizationsState())
         private set
