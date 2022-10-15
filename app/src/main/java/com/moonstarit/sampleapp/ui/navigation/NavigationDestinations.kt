@@ -10,4 +10,6 @@ object Civilizations : NavigationDestinations {
 
 object CivilizationDetail : NavigationDestinations {
     override val route: String = "civilizationDetail"
+    val civilizationId: String = "id"
+    val totalRoute: String = "$route/{$civilizationId}"
 }

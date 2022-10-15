@@ -11,14 +11,30 @@ class CivilizationRepositoryImpl(
 ) : CivilizationRepository {
     override suspend fun getCivilizations(): Resource<List<CivilizationData>> {
         return try {
-            var civilizations: List<CivilizationData> = emptyList()
             val response = aeoApi.getCivilizations()
             if (response.isSuccessful) {
-                civilizations = response.body()?.civilizations?.map {
+                val civilizations = response.body()?.civilizations?.map {
                     it.toCivilizationData()
                 }.orEmpty()
+                Resource.Success(civilizations)
+            } else {
+                Resource.Error("Request not successful")
             }
-            Resource.Success(civilizations)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Resource.Error(e.message ?: "An unknown error occurred.")
+        }
+    }
+
+    override suspend fun getCivilization(id: Long): Resource<CivilizationData> {
+        return try {
+            val response = aeoApi.getCivilizationDetail(id)
+            if (response.isSuccessful) {
+                val civilization = response.body()?.toCivilizationData()
+                Resource.Success(civilization)
+            } else {
+                Resource.Error("Request not successful")
+            }
         } catch (e: Exception) {
             e.printStackTrace()
             Resource.Error(e.message ?: "An unknown error occurred.")

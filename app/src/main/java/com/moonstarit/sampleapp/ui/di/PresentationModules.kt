@@ -1,5 +1,6 @@
 package com.moonstarit.sampleapp.ui.di
 
+import com.moonstarit.sampleapp.ui.civilizations.CivilizationDetailViewModel
 import com.moonstarit.sampleapp.ui.civilizations.CivilizationsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -13,5 +14,8 @@ val presentationModules: List<Module> by lazy {
 val viewModelModule = module {
     viewModel {
         CivilizationsViewModel(get())
+    }
+    viewModel {
+        CivilizationDetailViewModel(get())
     }
 }
